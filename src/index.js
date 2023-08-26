@@ -4,8 +4,17 @@ const choices = [
 	"scissors",
 ]
 
+let buttons = [];
+let statusText = Object;
+let rounds = 0;
 let playerWins = 0;
 let enemyWins = 0;
+
+function setup()
+{
+    statusText = document.getElementById("status");
+    setupButtons();
+}
 
 function getComputerChoice()
 {
@@ -22,7 +31,9 @@ function checkRound(player, computer)
 {
     if (player === computer)
     {
-        return "draw"
+        statusText.innerText = "player choice: " + player + " computer choice: " + computer + " results in: " + "draw";
+
+        return statusText.innerText;
     }
 
     if (player === "scissors" && computer === "paper"
@@ -31,47 +42,43 @@ function checkRound(player, computer)
     {
         playerWins++;
 
-        return "player wins"
+        statusText.innerText = "player choice: " + player + "computer choice: " + computer + " results in: " + "player wins"
+
+        return statusText.innerText
     }
 
     enemyWins++;
+    
+    statusText.innerText = "player choice: " + player + "computer choice: " + computer + " results in: " + "enemey wins"
 
-    return "enemey wins";
+    return statusText.innerText;
 }
 
-function checkGame()
+function setupButtons()
 {
-    if (playerWins === enemyWins)
+    buttons = document.getElementsByTagName("button");
+    
+    for (var i = 0; i < buttons.length; i++)
     {
-        return "draw";
-    }
+        const button = buttons[i];
 
-    return playerWins > enemyWins ? "player wins" : "enemy wins";
+        button.addEventListener("click", () => {
+            onButtonClick(button.innerText);
+        })
+    }
 }
 
-function game()
+function onButtonClick(e)
 {
-    for (let i = 0; i < 5; i++)
-    {
-        const input = prompt("rock, paper, scissors");
-
-        if (choices.includes(input) === false)
-        {
-            i--;
-
-            console.log("Invalid input");
-
-            continue;
-        }
-
-        const playerSelection = input.toLowerCase();
-        const computerSelection = getComputerChoice();
-        const result = playRound(playerSelection, computerSelection);
-
-        console.log(result);
-    }
-
-    console.log(checkGame());
+    simulateRound(e);
 }
 
-game();
+function simulateRound(playerInput)
+{
+    const playerSelection = playerInput.toLowerCase();
+    const computerSelection = getComputerChoice();
+    
+    playRound(playerSelection, computerSelection);
+}
+
+window.onload = setup;
