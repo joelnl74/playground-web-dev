@@ -7,9 +7,17 @@ body {
     color: white;
 }
 
-.container {
+.container-grid {
     display: grid;
     grid-template-columns: repeat(16, 16px);
+    justify-content: center;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    justify-content: center;
+    padding: 10px;
 }
 
 .grid-item {
@@ -17,6 +25,14 @@ body {
     user-select: none;
     width: 16px;
     height: 16px;
-    border: 4px;
-    border-color: black;
+}
+
+p {
+    color: white;
+    text-align: center;
+}
+
+button {
+    margin:0 auto;
+    display:block;
 }
