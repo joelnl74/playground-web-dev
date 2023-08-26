@@ -25,6 +25,8 @@ body {
     user-select: none;
     width: 16px;
     height: 16px;
+    border: 1px;
+    border-style: solid;
 }
 
 p {
